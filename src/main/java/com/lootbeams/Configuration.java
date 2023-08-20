@@ -7,12 +7,11 @@ import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Identifier;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -157,10 +156,10 @@ public class Configuration {
 				String[] configValue = unparsed.split("=");
 				if (configValue.length == 2) {
 					String nameIn = configValue[0];
-					ResourceLocation registry = ResourceLocation.tryParse(nameIn.replace("#", ""));
+					Identifier registry = Identifier.tryParse(nameIn.replace("#", ""));
 					TextColor colorIn = null;
 					try {
-						colorIn = TextColor.parseColor(configValue[1]);
+						colorIn = TextColor.parse(configValue[1]);
 					} catch (Exception e) {
 						LootBeams.LOGGER.error(String.format("Color overrides error! \"%s\" is not a valid hex color for \"%s\"", configValue[1], nameIn));
 						return null;
@@ -168,7 +167,7 @@ public class Configuration {
 
 					//Modid
 					if (!nameIn.contains(":")) {
-						if (Registry.ITEM.getKey(i).getNamespace().equals(nameIn)) {
+						if (Registries.ITEM.getId(i).getNamespace().equals(nameIn)) {
 							return colorIn;
 						}
 
@@ -177,16 +176,16 @@ public class Configuration {
 					if (registry != null) {
 						//Tag
 						if (nameIn.startsWith("#")) {
-							Optional<HolderSet.Named<Item>> tag = Registry.ITEM.getTags().filter(pair -> pair.getFirst().location().equals(registry))
+							Optional<RegistryEntryList.Named<Item>> tag = Registries.ITEM.streamTagsAndEntries().filter(pair -> pair.getFirst().id().equals(registry))
 									.findFirst().map(Pair::getSecond);
 //							Optional<HolderSet.Named<Item>> tag = Registry.ITEM.getTag(TagKey.create(Registry.ITEM_REGISTRY, registry));
-							if(tag.isPresent() && tag.get().contains(Registry.ITEM.getHolder(Registry.ITEM.getResourceKey(i).get()).get())){
+							if(tag.isPresent() && tag.get().contains(Registries.ITEM.getEntry(Registries.ITEM.getKey(i).get()).get())){
 								return colorIn;
 							}
 						}
 
 						//Item
-						Optional<Item> registryItem = Registry.ITEM.getOptional(registry);
+						Optional<Item> registryItem = Registries.ITEM.getOrEmpty(registry);
 						if (registryItem.isPresent() && registryItem.get().asItem() == i.asItem()) {
 							return colorIn;
 						}

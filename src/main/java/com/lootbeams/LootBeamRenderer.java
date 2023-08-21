@@ -50,9 +50,23 @@ public abstract class LootBeamRenderer extends RenderLayer {
 	}
 
 	public static void renderLootBeam(MatrixStack stack, VertexConsumerProvider buffer, float pticks, long worldtime, ItemEntity item) {
+		float beamAlpha = LootBeams.config.beamAlpha;
+		float fadeDistance = LootBeams.config.fadeDistance;
+		//Fade out when close
+		var player = MinecraftClient.getInstance().player;
+		var distance = player.squaredDistanceTo(item);
+		if (distance < fadeDistance) {
+			beamAlpha *= Math.max(0, distance-fadeDistance+1);
+		}
+		//Dont render beam if its too transparent
+		if (beamAlpha <= 0.1f) {
+			return;
+		}
+
+		float glowAlpha = beamAlpha * 0.4f;
+
 		float beamRadius = 0.05f * LootBeams.config.beamRadius;
 		float glowRadius = beamRadius + (beamRadius * 0.2f);
-		float beamAlpha = LootBeams.config.beamAlpha;
 		float beamHeight = LootBeams.config.beamHeight;
 		float yOffset = LootBeams.config.beamYOffset;
 
@@ -81,9 +95,9 @@ public abstract class LootBeamRenderer extends RenderLayer {
 		stack.translate(0, yOffset, 0);
 		stack.translate(0, 1, 0);
 		stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
-		renderPart(stack, buffer.getBuffer(LOOT_BEAM_RENDERTYPE), R, G, B, beamAlpha * 0.4f, beamHeight, -glowRadius, -glowRadius, glowRadius, -glowRadius, -beamRadius, glowRadius, glowRadius, glowRadius);
+		renderPart(stack, buffer.getBuffer(LOOT_BEAM_RENDERTYPE), R, G, B, glowAlpha, beamHeight, -glowRadius, -glowRadius, glowRadius, -glowRadius, -beamRadius, glowRadius, glowRadius, glowRadius);
 		stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-180));
-		renderPart(stack, buffer.getBuffer(LOOT_BEAM_RENDERTYPE), R, G, B, beamAlpha * 0.4f, beamHeight, -glowRadius, -glowRadius, glowRadius, -glowRadius, -beamRadius, glowRadius, glowRadius, glowRadius);
+		renderPart(stack, buffer.getBuffer(LOOT_BEAM_RENDERTYPE), R, G, B, glowAlpha, beamHeight, -glowRadius, -glowRadius, glowRadius, -glowRadius, -beamRadius, glowRadius, glowRadius, glowRadius);
 
 		stack.pop();
 

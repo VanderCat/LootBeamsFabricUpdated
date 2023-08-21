@@ -42,6 +42,7 @@ public class Configuration {
 	public float beamYOffset = 0;
 	public float beamAlpha = 0.85f;
 	public float renderDistance = 24.0f;
+	public float fadeDistance = 2.0f;
 
 	public boolean borders = true;
 	public boolean renderNametags = true;
@@ -69,6 +70,7 @@ public class Configuration {
 				inst.beamYOffset = main.getDouble("beam_y_offset", 0.0).floatValue();
 				inst.beamAlpha = main.getDouble("beam_alpha", 0.85).floatValue();
 				inst.renderDistance = main.getDouble("render_distance", 24.0).floatValue();
+				inst.renderDistance = main.getDouble("fade_distance", 2.0).floatValue();
 				inst.colorOverrides = main.getList("color_overrides", new ArrayList<>());
 
 				var items = main.getTable("Items");
@@ -134,6 +136,7 @@ public class Configuration {
 		main.put("beam_y_offset", this.beamYOffset);
 		main.put("beam_alpha", this.beamAlpha);
 		main.put("render_distance", this.renderDistance);
+		main.put("fade_distance", this.renderDistance);
 		main.put("color_overrides", this.colorOverrides);
 		main.put("Items", items);
 		main.put("Nametags", nametags);

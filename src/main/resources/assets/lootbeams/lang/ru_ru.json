@@ -1,0 +1,91 @@
+{
+  "modmenu.descriptionTranslation.lootbeams": "Высоконастраивымые лучи у выпавших предметов!",
+
+
+  "lootbeams.config.main": "Основное",
+
+  "lootbeams.config.main.renderNameColor": "Цвет от имени",
+  "lootbeams.config.main.renderNameColor.description": "Делает цвет лучшей такой же как у имени предмета (исключая цвета редкости). \nОбладает приоритетом над render_rarity_color.",
+
+  "lootbeams.config.main.renderRarityColor": "Цвет от редкости",
+  "lootbeams.config.main.enderRarityColor.description": "Делает цвет лучшей такой же как у редкости предмета.",
+
+  "lootbeams.config.main.beamRadius": "Радиус луча",
+  "lootbeams.config.main.beamRadius.description": "Регулирует радиус луча.",
+
+  "lootbeams.config.main.beamHeight": "Высота луча",
+  "lootbeams.config.main.beamHeight.description": "Регулирует высоту луча.",
+
+  "lootbeams.config.main.beamYOffset": "Отступы по Y луча",
+  "lootbeams.config.main.beamYOffset.description": "Регулирует отступ по Y у луча.",
+
+  "lootbeams.config.main.beamAlpha": "Альфа луча",
+  "lootbeams.config.main.beamAlpha.description": "Регулирует прозрачность у луча.",
+
+  "lootbeams.config.main.beamRenderDistance": "Расстояние отображения",
+  "lootbeams.config.main.beamRenderDistance.description": "Насколько близко должен быть игрок что бы видеть лучи.\n (заметка: ItemEntities прекращают свое отображение на расстоянии 24 блоков, так что это лимит для лучей.)",
+
+  "lootbeams.config.main.beamFadeDistance": "Рассотяние до исчезновения",
+  "lootbeams.config.main.beamFadeDistance.description": "Насколько близко должен быть игрок что бы луч исчез.\n (note: плавное сглаживание идет на протяжении 1 юнита)",
+
+  "lootbeams.config.main.colorOverrides": "Переопределение цветов",
+  "lootbeams.config.main.colorOverrides.description": "Переопределяет цвет луча предмета в шестнадцатеричном (hex) формате.\n Должен следовать такому формату: (registryname=hexcolor) или (#tagname=hexcolor).\n Например: \"minecraft:stone=0xFFFFFF\". Так же можно использовать Mod Id.",
+
+
+  "lootbeams.config.items": "Предметы",
+
+  "lootbeams.config.item.allItems": "Все предметы",
+  "lootbeams.config.item.allItems.description": "Должны ли все предметы иметь лучи.\n Обладает приоритетом над only_equipment и only_rare.",
+
+  "lootbeams.config.item.onlyRare": "Только Редкие",
+  "lootbeams.config.item.onlyRare.description": "Должны ли лучи отображаться только у предметов с редкостью.",
+
+  "lootbeams.config.item.onlyEquipment": "Только обмундирование",
+  "lootbeams.config.item.onlyEquipment.description": "Должны ли лучи отображаться только на обмудировании.\n (Сюда входят: Мечи, Интсрументы, Броня, Щиты, Луки, Арбалеты, Трезубцы, Стрелы, и Удочки)",
+
+  "lootbeams.config.item.whitelist": "Белый список",
+  "lootbeams.config.item.whitelist.description": "Имя в Регистре предметов на которых будут лучи всегда.\n Напимер: \"minecraft:stone\", \"minecraft:iron_ingot\", \nМожно так же указать Mod Id для включения всех предметов из мода.",
+
+  "lootbeams.config.item.blacklist": "Черный список",
+  "lootbeams.config.item.blacklist.description": "Имя в Регистре предметов на которых будут лучи НЕ БУДЕТ НИКОГДА. Обладает приоритетом вообще на все.\nМожно так же указать Mod Id для включения всех предметов из мода.",
+
+
+  "lootbeams.config.nametags": "Теги Предметов",
+
+  "lootbeams.config.nametags.borders": "Края",
+  "lootbeams.config.nametags.borders.description": "Отображать теги с краями. При отключении теги будут рисоваться сплошным фоном как имена игроков.",
+
+  "lootbeams.config.nametags.render": "Отображать Теги",
+  "lootbeams.config.nametags.render.description": "Отвечает за то стоит ли их отрисовывать.",
+
+  "lootbeams.config.nametags.renderOnlook": "Отображать Теги при взгялде",
+  "lootbeams.config.nametags.renderOnlook.description": "При включении теги будут появляться тольк при наведении на предмет.",
+
+  "lootbeams.config.nametags.renderStackCount": "Отображать Количество",
+  "lootbeams.config.nametags.renderStackCount.description": "Отображает количество выброшеного предмета в Теге.",
+
+  "lootbeams.config.nametags.lookSensitivity": "Чувствительность наведения",
+  "lootbeams.config.nametags.lookSensitivity.description": "Как далеко может игрок отвести прицел и все еще видеть Тег",
+
+  "lootbeams.config.nametags.textAlpha": "Альфа Текста",
+  "lootbeams.config.nametags.textAlpha.description": "Прозрачность текста у Тега",
+
+  "lootbeams.config.nametags.backgroundAlpha": "Альфа Фона",
+  "lootbeams.config.nametags.backgroundAlpha.description": "Прозрачность фона/краев у Тега.",
+
+  "lootbeams.config.nametags.scale": "Масштаб Тега",
+  "lootbeams.config.nametags.scale.description": "Отвечает за размер Тега на экране.",
+
+  "lootbeams.config.nametags.yOffset": "Отступ по Y у тега",
+  "lootbeams.config.nametags.yOffset.description": "Отступ по Y у тега.",
+
+  "lootbeams.config.nametags.dmcLootCompat.rarities": "Поддержка редкостей DMCLoot",
+  "lootbeams.config.nametags.dmcLootCompat.rarities.description": "Отрисовывывать более мелкий тег редкости под преметами с редкостью DMCLoot.",
+
+  "lootbeams.config.nametags.rarities": "Свои редкости",
+  "lootbeams.config.nametags.rarities.description": "Можно указать какие редкости должны отображаться. \nExample: \"Экзотичный\", \"Древний\". \nЭти строки должны быть второй строчкой у предмета при наведении в инвентаре. \nВ основном используется в модпаках.",
+
+  "lootbeams.config.nametags.whiteRarities": "Белые редкости",
+  "lootbeams.config.nametags.whiteRarities.description": "Должны ли редкости игнорировать свой цвет и отображаться белыми \n(В основном используется в модпаках)"
+}
+

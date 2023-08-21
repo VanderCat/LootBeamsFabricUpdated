@@ -1,0 +1,91 @@
+{
+  "lootbeams.title": "Loot Beams",
+
+
+  "lootbeams.config.main": "Main",
+
+  "lootbeams.config.main.renderNameColor": "Render Name Color",
+  "lootbeams.config.main.renderNameColor.description": "If beams should be colored the same as the Items name (excludes name colors from rarity). \nThis has priority over render_rarity_color.",
+
+  "lootbeams.config.main.renderRarityColor": "Render Rarity Color",
+  "lootbeams.config.main.enderRarityColor.description": "If beams should be colored the same as the Items rarity.",
+
+  "lootbeams.config.main.beamRadius": "Beam Radius",
+  "lootbeams.config.main.beamRadius.description": "The radius of the Loot Beam.",
+
+  "lootbeams.config.main.beamHeight": "Beam Height",
+  "lootbeams.config.main.beamHeight.description": "The height of the Loot Beam.",
+
+  "lootbeams.config.main.beamYOffset": "Beam Y Offset",
+  "lootbeams.config.main.beamYOffset.description": "The height of the Loot Beam.",
+
+  "lootbeams.config.main.beamAlpha": "Beam Alpha",
+  "lootbeams.config.main.beamAlpha.description": "Transparency of the Loot Beam.",
+
+  "lootbeams.config.main.beamRenderDistance": "Beam Render Distance",
+  "lootbeams.config.main.beamRenderDistance.description": "How close the player has to be to see the beam.\n (note: ItemEntities stop rendering at 24 blocks, so that is the limit for beams)",
+
+  "lootbeams.config.main.beamFadeDistance": "Beam Fade Distance",
+  "lootbeams.config.main.beamFadeDistance.description": "How close the player has to be to no longer see the beam.\n (note: smooth fade distance is 1 unit)",
+
+  "lootbeams.config.main.colorOverrides": "Color Overrides",
+  "lootbeams.config.main.colorOverrides.description": "Overrides an item's beam color with hex color.\n Must follow the specific format: (registryname=hexcolor) Or (#tagname=hexcolor).\n Example: \"minecraft:stone=0xFFFFFF\". This also accepts modids.",
+
+
+  "lootbeams.config.items": "Items",
+
+  "lootbeams.config.item.allItems": "All Items",
+  "lootbeams.config.item.allItems.description": "If all Items Loot Beams should be rendered.\n Has priority over only_equipment and only_rare.",
+
+  "lootbeams.config.item.onlyRare": "Only Rare",
+  "lootbeams.config.item.onlyRare.description": "If Loot Beams should only be rendered on items with rarity.",
+
+  "lootbeams.config.item.onlyEquipment": "Only Equipment",
+  "lootbeams.config.item.onlyEquipment.description": "If Loot Beams should only be rendered on equipment.\n (Equipment includes: Swords, Tools, Armor, Shields, Bows, Crossbows, Tridents, Arrows, and Fishing Rods)",
+
+  "lootbeams.config.item.whitelist": "Whitelist",
+  "lootbeams.config.item.whitelist.description": "Registry names of items that Loot Beams should render on.\n Example: \"minecraft:stone\", \"minecraft:iron_ingot\", \nYou can also specify modids for a whole mod's items",
+
+  "lootbeams.config.item.blacklist": "Blacklist",
+  "lootbeams.config.item.blacklist.description": "Registry names of items that Loot Beams should NOT render on. This has priority over everything.\n You can also specify modids for a whole mod's items.",
+
+
+  "lootbeams.config.nametags": "Name Tags",
+
+  "lootbeams.config.nametags.borders": "Borders",
+  "lootbeams.config.nametags.borders.description": "Render nametags as bordered. Set to false for flat nametag with background.",
+
+  "lootbeams.config.nametags.render": "Render Nametags",
+  "lootbeams.config.nametags.render.description": "If Item nametags should be rendered at all.",
+
+  "lootbeams.config.nametags.renderOnlook": "Render Nametags On Look",
+  "lootbeams.config.nametags.renderOnlook.description": "If Item nametags should be rendered when looking at items.",
+
+  "lootbeams.config.nametags.renderStackCount": "Render Stack Count",
+  "lootbeams.config.nametags.renderStackCount.description": "If the count of item's should also be shown in the nametag.",
+
+  "lootbeams.config.nametags.lookSensitivity": "Nametag Look Sensitivity",
+  "lootbeams.config.nametags.lookSensitivity.description": "How close the player has to look at the item to render the nametag.",
+
+  "lootbeams.config.nametags.textAlpha": "Nametag Text Alpha",
+  "lootbeams.config.nametags.textAlpha.description": "Transparency of the nametag text.",
+
+  "lootbeams.config.nametags.backgroundAlpha": "Nametag Background Alpha",
+  "lootbeams.config.nametags.backgroundAlpha.description": "Transparency of the nametag background/border.",
+
+  "lootbeams.config.nametags.scale": "Nametag Scale",
+  "lootbeams.config.nametags.scale.description": "Scale of the nametag.",
+
+  "lootbeams.config.nametags.yOffset": "Nametag Y Offset",
+  "lootbeams.config.nametags.yOffset.description": "The Y-offset of the nametag.",
+
+  "lootbeams.config.nametags.dmcLootCompat.rarities": "DMCLoot Compat Rarity",
+  "lootbeams.config.nametags.dmcLootCompat.rarities.description": "If a smaller tag should be rendered under with DMCLoot rarities.",
+
+  "lootbeams.config.nametags.rarities": "Custom Rarities",
+  "lootbeams.config.nametags.rarities.description": "Define what the smaller tag should render on. \nExample: \"Exotic\", \"Ancient\". \nThe string supplied has to be the tooltip line below the name. \nThis is really only used for modpacks.",
+
+  "lootbeams.config.nametags.whiteRarities": "White Rarities",
+  "lootbeams.config.nametags.whiteRarities.description": "If rarities should ignore color and render as white \n(This is really only used for modpacks)"
+}
+

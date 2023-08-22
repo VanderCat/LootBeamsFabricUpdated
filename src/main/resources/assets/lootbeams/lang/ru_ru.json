@@ -85,6 +85,9 @@
   "lootbeams.config.nametags.rarities": "Свои редкости",
   "lootbeams.config.nametags.rarities.description": "Можно указать какие редкости должны отображаться. \nExample: \"Экзотичный\", \"Древний\". \nЭти строки должны быть второй строчкой у предмета при наведении в инвентаре. \nВ основном используется в модпаках.",
 
+  "lootbeams.config.nametags.alwaysDrawRarities": "Отображать Лор",
+  "lootbeams.config.nametags.alwaysDrawRarities.description": "Можно указать предметы на которых редкости должны отображаться всегда. \nНапример: \"#minecraft:music_discs\" будет отображать маленьким тегом автори и имя трека. \nИмейте ввиду что этот текст является только второй строчкой линии под именем предмета, так что это не сработает с отображением всех зачарований. (но 1 зачарование выглядит хорошо)",
+
   "lootbeams.config.nametags.whiteRarities": "Белые редкости",
   "lootbeams.config.nametags.whiteRarities.description": "Должны ли редкости игнорировать свой цвет и отображаться белыми \n(В основном используется в модпаках)"
 }

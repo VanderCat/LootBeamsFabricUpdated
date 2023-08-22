@@ -1,6 +1,7 @@
 package com.lootbeams;
 
 import com.google.common.collect.Lists;
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -16,7 +17,10 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -139,16 +143,35 @@ public abstract class LootBeamRenderer extends RenderLayer {
 			stack.translate(0, 0, -10);
 			RenderText(fontrenderer, stack, buffer, itemName, foregroundColor, backgroundColor, backgroundAlpha);
 
-			//Render small tags
-			stack.translate(0.0D, 10, 0.0D);
-			stack.scale(0.75f, 0.75f, 0.75f);
-			boolean textDrawn = false;
-			List<Text> tooltip = item.getStack().getTooltip(null, TooltipContext.Default.BASIC);
-			if (tooltip.size() >= 2) {
-				Text tooltipRarity = tooltip.get(1);
 
-				//Render dmcloot rarity small tags
-				//NOFIX: as dmcloot has no support with Fabric and Minecraft 1.18.x, such support is commented out
+			DrawRarity(item, foregroundAlpha, backgroundAlpha, fontrenderer, stack, buffer);
+
+			stack.pop();
+		}
+	}
+
+	private static void DrawRarity(ItemEntity item,
+								   float foregroundAlpha,
+								   float backgroundAlpha,
+								   TextRenderer fontRenderer,
+								   MatrixStack stack,
+								   VertexConsumerProvider buffer
+	) {
+		//Render small tags
+		stack.translate(0.0D, 10, 0.0D);
+		stack.scale(0.75f, 0.75f, 0.75f);
+
+		List<Text> tooltip = item.getStack().getTooltip(null, TooltipContext.Default.BASIC);
+
+        if (tooltip.size() < 2) {
+            return;
+        }
+		boolean textDrawn = false;
+
+        Text tooltipRarity = tooltip.get(1);
+
+        //Render dmcloot rarity small tags
+        //NOFIX: as dmcloot has no support with Fabric and Minecraft 1.18.x, such support is commented out
 //				if (LootBeams.config.DMCLOOT_COMPAT_RARITY.get() && FabricLoader.getInstance().isModLoaded("dmcloot")) {
 //					if (item.getItem().hasTag() && item.getItem().getTag().contains("dmcloot.rarity")) {
 //						Color rarityColor = LootBeams.config.WHITE_RARITIES.get() ? Color.WHITE : getRawColor(tooltipRarity);
@@ -158,17 +181,56 @@ public abstract class LootBeamRenderer extends RenderLayer {
 //					}
 //				}
 
-				//Render custom rarities
-				if (!textDrawn && LootBeams.config.customRarities.contains(tooltipRarity.getString())) {
-					TextColor rarityColor = LootBeams.config.whiteRarities ? TextColor.fromFormatting(Formatting.WHITE) : getRawColor(tooltipRarity);
-					foregroundColor = (rarityColor.getRgb() & 0xffffff) | ((int) (255 * foregroundAlpha) << 24);
-					backgroundColor = (rarityColor.getRgb() & 0xffffff) | ((int) (255 * backgroundAlpha) << 24);
-					RenderText(fontrenderer, stack, buffer, tooltipRarity.getString(), foregroundColor, backgroundColor, backgroundAlpha);
+		var rarityString = tooltipRarity.getString();
+
+        //Render custom rarities
+        if (textDrawn)
+			return;
+
+
+		if (!(LootBeams.config.customRarities.contains(rarityString) || AlwaysHasRarity(item.getStack())))
+			return;
+
+
+        TextColor rarityColor = LootBeams.config.whiteRarities ? TextColor.fromFormatting(Formatting.WHITE) : getRawColor(tooltipRarity);
+        int foregroundColor = (rarityColor.getRgb() & 0xffffff) | ((int) (255 * foregroundAlpha) << 24);
+        int backgroundColor = (rarityColor.getRgb() & 0xffffff) | ((int) (255 * backgroundAlpha) << 24);
+        RenderText(fontRenderer, stack, buffer, rarityString, foregroundColor, backgroundColor, backgroundAlpha);
+    }
+
+	private static boolean AlwaysHasRarity(ItemStack item) {
+		List<String> overrides = LootBeams.config.alwaysDrawRaritiesOn;
+		if (overrides.isEmpty())
+			return false;
+
+		for (String name : overrides.stream().filter((s) -> (!s.isEmpty())).toList()) {
+			Identifier registry = Identifier.tryParse(name.replace("#", ""));
+
+			//Modid
+			if (!name.contains(":"))
+				if (Registries.ITEM.getId(item.getItem()).getNamespace().equals(name))
+					return true;
+
+			if (registry == null)
+				continue;
+
+			//Tag
+			if (name.startsWith("#")) {
+				Optional<RegistryEntryList.Named<Item>> tag = Registries.ITEM.streamTagsAndEntries().filter(pair -> pair.getFirst().id().equals(registry))
+						.findFirst().map(Pair::getSecond);
+				//					Optional<HolderSet.Named<Item>> tag = Registry.ITEM.getTag(TagKey.create(Registry.ITEM_REGISTRY, registry));
+				if (tag.isPresent() && tag.get().contains(Registries.ITEM.getEntry(Registries.ITEM.getKey(item.getItem()).get()).get())) {
+					return true;
 				}
 			}
 
-			stack.pop();
+			//Item
+			Optional<Item> registryItem = Registries.ITEM.getOrEmpty(registry);
+
+			if (registryItem.isPresent() && registryItem.get().asItem() == item.getItem())
+				return true;
 		}
+		return false;
 	}
 
 	private static void RenderText(

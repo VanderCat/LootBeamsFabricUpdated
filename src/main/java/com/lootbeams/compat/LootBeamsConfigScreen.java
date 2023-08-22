@@ -2,9 +2,7 @@ package com.lootbeams.compat;
 
 import com.lootbeams.LootBeams;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
-import me.shedaniel.clothconfig2.api.ConfigCategory;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -164,6 +162,11 @@ public class LootBeamsConfigScreen {
                         .setDefaultValue(new ArrayList<>())
                         .setSaveConsumer(value -> LootBeams.config.customRarities = value)
                         .setTooltip(Text.translatable("lootbeams.config.nametags.rarities.description"))
+                        .build())
+                .addEntry(builder.entryBuilder().startStrList(Text.translatable("lootbeams.config.nametags.alwaysDrawRarities"), LootBeams.config.alwaysDrawRaritiesOn)
+                        .setDefaultValue(new ArrayList<>())
+                        .setSaveConsumer(value -> LootBeams.config.alwaysDrawRaritiesOn = value)
+                        .setTooltip(Text.translatable("lootbeams.config.nametags.alwaysDrawRarities.description"))
                         .build())
                 .addEntry(builder.entryBuilder().startBooleanToggle(Text.translatable("lootbeams.config.nametags.whiteRarities"), LootBeams.config.whiteRarities)
                         .setDefaultValue(false)

@@ -85,6 +85,9 @@
   "lootbeams.config.nametags.rarities": "Custom Rarities",
   "lootbeams.config.nametags.rarities.description": "Define what the smaller tag should render on. \nExample: \"Exotic\", \"Ancient\". \nThe string supplied has to be the tooltip line below the name. \nThis is really only used for modpacks.",
 
+  "lootbeams.config.nametags.alwaysDrawRarities": "Draw Lore",
+  "lootbeams.config.nametags.alwaysDrawRarities.description": "Define on which items smaller tag should render on. \nExample: \"#minecraft:music_discs\" will render song name as smaller tag. \nBe aware that text rendered is a tooltip line below the name so it wont work well with multiple enchantments (though 1 enchantment looks pretty good)",
+
   "lootbeams.config.nametags.whiteRarities": "White Rarities",
   "lootbeams.config.nametags.whiteRarities.description": "If rarities should ignore color and render as white \n(This is really only used for modpacks)"
 }

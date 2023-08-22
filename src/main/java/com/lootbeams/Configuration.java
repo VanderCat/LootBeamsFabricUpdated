@@ -55,6 +55,7 @@ public class Configuration {
 	public float nametagYOffset = 0.75f;
 	public boolean dmclootCompatRarity = true;
 	public List<String> customRarities = new ArrayList<>();
+	public List<String> alwaysDrawRaritiesOn = List.of(new String[]{"#minecrft:music_discs"});
 	public boolean whiteRarities = false;
 
 	public static Configuration load(){
@@ -92,6 +93,7 @@ public class Configuration {
 				inst.nametagYOffset = nametags.getDouble("nametag_y_offset", 0.75).floatValue();
 				inst.dmclootCompatRarity = nametags.getBoolean("dmcloot_compat_rarity", true);
 				inst.customRarities = nametags.getList("custom_rarities", new ArrayList<>());
+				inst.alwaysDrawRaritiesOn = nametags.getList("always_draw_rarities_on", new ArrayList<>());
 				inst.whiteRarities = nametags.getBoolean("white_rarities", false);
 			}
 			catch (Exception e){
@@ -119,6 +121,7 @@ public class Configuration {
 		nametags.put("nametag_y_offset", this.nametagYOffset);
 		nametags.put("dmcloot_compat_rarity", this.dmclootCompatRarity);
 		nametags.put("custom_rarities", this.customRarities);
+		nametags.put("always_draw_rarities_on", this.alwaysDrawRaritiesOn);
 		nametags.put("white_rarities", this.whiteRarities);
 
 		HashMap<String, Object> items = new HashMap<>();
@@ -154,49 +157,51 @@ public class Configuration {
 
 	public static TextColor getColorFromItemOverrides(Item i) {
 		List<String> overrides = LootBeams.config.colorOverrides;
-		if (overrides.size() > 0) {
-			for (String unparsed : overrides.stream().filter((s) -> (!s.isEmpty())).toList()) {
-				String[] configValue = unparsed.split("=");
-				if (configValue.length == 2) {
-					String nameIn = configValue[0];
-					Identifier registry = Identifier.tryParse(nameIn.replace("#", ""));
-					TextColor colorIn = null;
-					try {
-						colorIn = TextColor.parse(configValue[1]);
-					} catch (Exception e) {
-						LootBeams.LOGGER.error(String.format("Color overrides error! \"%s\" is not a valid hex color for \"%s\"", configValue[1], nameIn));
-						return null;
-					}
+        if (overrides.isEmpty())
+            return null;
 
-					//Modid
-					if (!nameIn.contains(":")) {
-						if (Registries.ITEM.getId(i).getNamespace().equals(nameIn)) {
-							return colorIn;
-						}
 
-					}
+        for (String unparsed : overrides.stream().filter((s) -> (!s.isEmpty())).toList()) {
+            String[] configValue = unparsed.split("=");
 
-					if (registry != null) {
-						//Tag
-						if (nameIn.startsWith("#")) {
-							Optional<RegistryEntryList.Named<Item>> tag = Registries.ITEM.streamTagsAndEntries().filter(pair -> pair.getFirst().id().equals(registry))
-									.findFirst().map(Pair::getSecond);
-//							Optional<HolderSet.Named<Item>> tag = Registry.ITEM.getTag(TagKey.create(Registry.ITEM_REGISTRY, registry));
-							if(tag.isPresent() && tag.get().contains(Registries.ITEM.getEntry(Registries.ITEM.getKey(i).get()).get())){
-								return colorIn;
-							}
-						}
+            if (configValue.length != 2)
+				continue;
 
-						//Item
-						Optional<Item> registryItem = Registries.ITEM.getOrEmpty(registry);
-						if (registryItem.isPresent() && registryItem.get().asItem() == i.asItem()) {
-							return colorIn;
-						}
+			String nameIn = configValue[0];
+			Identifier registry = Identifier.tryParse(nameIn.replace("#", ""));
+            TextColor colorIn = null;
+			try {
+				colorIn = TextColor.parse(configValue[1]);
+			} catch (Exception e) {
+				LootBeams.LOGGER.error(String.format("Color overrides error! \"%s\" is not a valid hex color for \"%s\"", configValue[1], nameIn));
+				return null;
+			}
 
-					}
+			//Modid
+			if (!nameIn.contains(":"))
+				if (Registries.ITEM.getId(i).getNamespace().equals(nameIn))
+					return colorIn;
+
+			if (registry == null)
+				continue;
+
+				//Tag
+			if (nameIn.startsWith("#")) {
+				Optional<RegistryEntryList.Named<Item>> tag = Registries.ITEM.streamTagsAndEntries().filter(pair -> pair.getFirst().id().equals(registry))
+						.findFirst().map(Pair::getSecond);
+//					Optional<HolderSet.Named<Item>> tag = Registry.ITEM.getTag(TagKey.create(Registry.ITEM_REGISTRY, registry));
+				if(tag.isPresent() && tag.get().contains(Registries.ITEM.getEntry(Registries.ITEM.getKey(i).get()).get())){
+					return colorIn;
 				}
 			}
-		}
-		return null;
+
+			//Item
+			Optional<Item> registryItem = Registries.ITEM.getOrEmpty(registry);
+
+			if (registryItem.isPresent() && registryItem.get().asItem() == i.asItem())
+				return colorIn;
+
+        }
+        return null;
 	}
 }

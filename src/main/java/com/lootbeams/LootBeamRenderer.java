@@ -248,10 +248,10 @@ public abstract class LootBeamRenderer extends RenderLayer {
 
 			var matrix = stack.peek().getPositionMatrix();
 			//Draws background (border) text
-			fontRenderer.draw(text, w + 1f, 0, bg, false, matrix, buffer, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0);
-			fontRenderer.draw(text, w - 1f, 0, bg, false, matrix, buffer, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0);
-			fontRenderer.draw(text, w, 1f, bg, false, matrix, buffer, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0);
-			fontRenderer.draw(text, w ,-1f, bg, false, matrix, buffer, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0);
+			fontRenderer.draw(text, w + 1f, 0, bg, false, matrix, buffer, TextRenderer.TextLayerType.NORMAL, 0, 0);
+			fontRenderer.draw(text, w - 1f, 0, bg, false, matrix, buffer, TextRenderer.TextLayerType.NORMAL, 0, 0);
+			fontRenderer.draw(text, w, 1f, bg, false, matrix, buffer, TextRenderer.TextLayerType.NORMAL, 0, 0);
+			fontRenderer.draw(text, w ,-1f, bg, false, matrix, buffer, TextRenderer.TextLayerType.NORMAL, 0, 0);
 
 			//Draws foreground text in front of border
 			stack.translate(0.0D, 0.0D, -0.01D);

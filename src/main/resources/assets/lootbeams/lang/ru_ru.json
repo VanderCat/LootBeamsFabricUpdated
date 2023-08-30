@@ -29,7 +29,7 @@
   "lootbeams.config.main.beamFadeDistance.description": "Насколько близко должен быть игрок что бы луч исчез.\n (note: плавное сглаживание идет на протяжении 1 юнита)",
 
   "lootbeams.config.main.colorOverrides": "Переопределение цветов",
-  "lootbeams.config.main.colorOverrides.description": "Переопределяет цвет луча предмета в шестнадцатеричном (hex) формате.\n Должен следовать такому формату: (registryname=hexcolor) или (#tagname=hexcolor).\n Например: \"minecraft:stone=0xFFFFFF\". Так же можно использовать Mod Id.",
+  "lootbeams.config.main.colorOverrides.description": "Переопределяет цвет луча предмета в шестнадцатеричном (hex) формате.\n Должен следовать такому формату: (registryname=hexcolor) или (#tagname=hexcolor).\n Например: \"minecraft:stone=#00FF00\", \"#minecraft:piglin_loved=gold\". Так же можно использовать Mod Id.",
 
 
   "lootbeams.config.items": "Предметы",

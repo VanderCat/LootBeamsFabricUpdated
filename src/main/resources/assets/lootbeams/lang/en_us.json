@@ -29,7 +29,7 @@
   "lootbeams.config.main.beamFadeDistance.description": "How close the player has to be to no longer see the beam.\n (note: smooth fade distance is 1 unit)",
 
   "lootbeams.config.main.colorOverrides": "Color Overrides",
-  "lootbeams.config.main.colorOverrides.description": "Overrides an item's beam color with hex color.\n Must follow the specific format: (registryname=hexcolor) Or (#tagname=hexcolor).\n Example: \"minecraft:stone=0xFFFFFF\". This also accepts modids.",
+  "lootbeams.config.main.colorOverrides.description": "Overrides an item's beam color with hex color.\n Must follow the specific format: (registryname=hexcolor) Or (#tagname=hexcolor).\n Examples: \"minecraft:stone=#00FF00\", \"#minecraft:piglin_loved=gold\". This also accepts modids.",
 
 
   "lootbeams.config.items": "Items",

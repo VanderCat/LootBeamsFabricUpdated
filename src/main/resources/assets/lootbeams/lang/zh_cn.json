@@ -1,0 +1,94 @@
+{
+  "lootbeams.title": "战利品光束",
+
+
+  "lootbeams.config.main": "主要",
+
+  "lootbeams.config.main.renderNameColor": "渲染名称颜色",
+  "lootbeams.config.main.renderNameColor.description": "光束的颜色应物品名称相同（不包括稀有物品的名称颜色）。\n它的优先级高于“渲染稀有颜色”。",
+
+  "lootbeams.config.main.renderRarityColor": "渲染稀有颜色",
+  "lootbeams.config.main.enderRarityColor.description": "光束的颜色应该与稀有物品的颜色相同。",
+
+  "lootbeams.config.main.beamRadius": "光束半径",
+  "lootbeams.config.main.beamRadius.description": "渲染光束的半径。",
+
+  "lootbeams.config.main.beamHeight": "光束高度",
+  "lootbeams.config.main.beamHeight.description": "渲染光束的高度。",
+
+  "lootbeams.config.main.beamYOffset": "光束Y轴偏移",
+  "lootbeams.config.main.beamYOffset.description": "渲染光束的高度(非光束高度,而是光束Y轴与掉落物的距离)。",
+
+  "lootbeams.config.main.beamAlpha": "光束透明度",
+  "lootbeams.config.main.beamAlpha.description": "光束的透明度",
+
+  "lootbeams.config.main.beamRenderDistance": "光束渲染距离",
+  "lootbeams.config.main.beamRenderDistance.description": "玩家能看到光束的距离。\n(注意:物品实体在24格方块处停止渲染,因此这是光束的距离渲染限制)。",
+
+  "lootbeams.config.main.beamFadeDistance": "光束衰减距离",
+  "lootbeams.config.main.beamFadeDistance.description": "在玩家接近光束时停止渲染的距离。\n(注意:平滑渐变距离为1个单位)",
+
+  "lootbeams.config.main.colorOverrides": "颜色覆盖",
+  "lootbeams.config.main.colorOverrides.description": "用十六进制颜色替代项目的光束颜色。\n 必须遵守特定格式: (注册名称=颜色代码) 或 (#标签名称=颜色代码)。\n 例如: \"minecraft:stone=#00FF00\", \"#minecraft:piglin_loved=gold\"。 支持模组物品ID。",
+
+
+  "lootbeams.config.items": "物品",
+
+  "lootbeams.config.item.allItems": "所有物品",
+  "lootbeams.config.item.allItems.description": "所有物品都会渲染光束\n 优先级高于“仅稀有物品”和“仅装备物品”。",
+
+  "lootbeams.config.item.onlyRare": "仅稀有物品",
+  "lootbeams.config.item.onlyRare.description": "光束仅渲染稀有物品。",
+
+  "lootbeams.config.item.onlyEquipment": "仅装备物品",
+  "lootbeams.config.item.onlyEquipment.description": "光束仅渲染装备物品\n (工具物品包括: 剑, 工具类, 盔甲, 盾牌, 弓, 弩, 三叉戟, 箭, 以及钓鱼竿)。",
+
+  "lootbeams.config.item.whitelist": "白名单",
+  "lootbeams.config.item.whitelist.description": "仅渲染在白名单内注册的物品\n 例如: \"minecraft:stone\", \"minecraft:iron_ingot\", \n支持模组物品ID。",
+
+  "lootbeams.config.item.blacklist": "黑名单",
+  "lootbeams.config.item.blacklist.description": "不渲染在黑名单内注册的物品，优先级高于一切\n 支持模组物品ID",
+
+
+  "lootbeams.config.nametags": "名称",
+
+  "lootbeams.config.nametags.borders": "名称背景框",
+  "lootbeams.config.nametags.borders.description": "渲染物品名称背景。若关闭选项则开启渲染名称背景框",
+
+  "lootbeams.config.nametags.render": "渲染名称",
+  "lootbeams.config.nametags.render.description": "渲染物品的名称。",
+
+  "lootbeams.config.nametags.renderOnlook": "看向物品时渲染名称",
+  "lootbeams.config.nametags.renderOnlook.description": "当看向物品时渲染该物品名称。",
+
+  "lootbeams.config.nametags.renderStackCount": "渲染物品数量",
+  "lootbeams.config.nametags.renderStackCount.description": "在渲染物品名称时渲染物品的数量。",
+
+  "lootbeams.config.nametags.lookSensitivity": "名称灵敏度",
+  "lootbeams.config.nametags.lookSensitivity.description": "当玩家不在看向物品时停止渲染名称的速度。",
+
+  "lootbeams.config.nametags.textAlpha": "名称透明度",
+  "lootbeams.config.nametags.textAlpha.description": "名称文本的渲染透明度。",
+
+  "lootbeams.config.nametags.backgroundAlpha": "名称背景框透明度",
+  "lootbeams.config.nametags.backgroundAlpha.description": "名称背景框的透明度。",
+
+  "lootbeams.config.nametags.scale": "名称大小",
+  "lootbeams.config.nametags.scale.description": "名称的大小",
+
+  "lootbeams.config.nametags.yOffset": "名称Y轴偏移",
+  "lootbeams.config.nametags.yOffset.description": "名称在Y轴距离物品的距离。",
+
+  "lootbeams.config.nametags.dmcLootCompat.rarities": "DMCLoot稀有物品兼容",
+  "lootbeams.config.nametags.dmcLootCompat.rarities.description": "一个较小的标签应该在DMCRoot稀有项下渲染。",
+
+  "lootbeams.config.nametags.rarities": "自定义标签",
+  "lootbeams.config.nametags.rarities.description": "定义小标签是否渲染 \n例如: \"Exotic\", \"Ancient\". \n提供的字符串必须是工具提示行下的名称 \n这通常用于整合包。(机翻)",
+
+  "lootbeams.config.nametags.alwaysDrawRarities": "特定渲染",
+  "lootbeams.config.nametags.alwaysDrawRarities.description": "定义小标签应该在哪些物品上渲染。 \n例如: \"#minecraft:music_discs\" 会将歌曲名作为小标签渲染 \nB请注意,渲染的文本是工具提示行下方的名称,因此它不能很好地与多个附魔配合使用(尽管1个附魔看起来很好)",
+
+  "lootbeams.config.nametags.whiteRarities": "稀有物品白色渲染",
+  "lootbeams.config.nametags.whiteRarities.description": "稀有物品将会忽略颜色并渲染为白色。\n(这实际上只用于整合包)"
+}
+

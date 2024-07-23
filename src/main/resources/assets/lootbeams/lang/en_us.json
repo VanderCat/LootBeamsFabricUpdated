@@ -23,7 +23,7 @@
   "lootbeams.config.main.beamAlpha.description": "Transparency of the Loot Beam.",
 
   "lootbeams.config.main.beamRenderDistance": "Beam Render Distance",
-  "lootbeams.config.main.beamRenderDistance.description": "How close the player has to be to see the beam.\n (note: ItemEntities stop rendering at 24 blocks, so that is the limit for beams)",
+  "lootbeams.config.main.beamRenderDistance.description": "How close the player has to be to see the beam.\n (note: ItemEntities stop rendering at 120 blocks, so that is the limit for beams)",
 
   "lootbeams.config.main.beamFadeDistance": "Beam Fade Distance",
   "lootbeams.config.main.beamFadeDistance.description": "How close the player has to be to no longer see the beam.\n (note: smooth fade distance is 1 unit)",

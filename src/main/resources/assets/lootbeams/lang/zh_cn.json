@@ -23,7 +23,7 @@
   "lootbeams.config.main.beamAlpha.description": "光束的透明度",
 
   "lootbeams.config.main.beamRenderDistance": "光束渲染距离",
-  "lootbeams.config.main.beamRenderDistance.description": "玩家能看到光束的距离。\n(注意:物品实体在24格方块处停止渲染,因此这是光束的距离渲染限制)。",
+  "lootbeams.config.main.beamRenderDistance.description": "玩家能看到光束的距离。\n(注意:物品实体在120格方块处停止渲染,因此这是光束的距离渲染限制)。",
 
   "lootbeams.config.main.beamFadeDistance": "光束衰减距离",
   "lootbeams.config.main.beamFadeDistance.description": "在玩家接近光束时停止渲染的距离。\n(注意:平滑渐变距离为1个单位)",

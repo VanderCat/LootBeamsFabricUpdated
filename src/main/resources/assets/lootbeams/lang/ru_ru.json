@@ -23,7 +23,7 @@
   "lootbeams.config.main.beamAlpha.description": "Регулирует прозрачность у луча.",
 
   "lootbeams.config.main.beamRenderDistance": "Расстояние отображения",
-  "lootbeams.config.main.beamRenderDistance.description": "Насколько близко должен быть игрок что бы видеть лучи.\n (заметка: ItemEntities прекращают свое отображение на расстоянии 24 блоков, так что это лимит для лучей.)",
+  "lootbeams.config.main.beamRenderDistance.description": "Насколько близко должен быть игрок что бы видеть лучи.\n (заметка: ItemEntities прекращают свое отображение на расстоянии 120 блоков, так что это лимит для лучей.)",
 
   "lootbeams.config.main.beamFadeDistance": "Рассотяние до исчезновения",
   "lootbeams.config.main.beamFadeDistance.description": "Насколько близко должен быть игрок что бы луч исчез.\n (note: плавное сглаживание идет на протяжении 1 юнита)",

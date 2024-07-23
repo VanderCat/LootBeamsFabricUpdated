@@ -41,7 +41,7 @@ public class Configuration {
 	public float beamHeight = 1;
 	public float beamYOffset = 0;
 	public float beamAlpha = 0.85f;
-	public float renderDistance = 24.0f;
+	public float renderDistance = 120.0f;
 	public float fadeDistance = 2.0f;
 
 	public boolean borders = true;
@@ -70,7 +70,7 @@ public class Configuration {
 				inst.beamHeight = main.getDouble("beam_height", 1.0).floatValue();
 				inst.beamYOffset = main.getDouble("beam_y_offset", 0.0).floatValue();
 				inst.beamAlpha = main.getDouble("beam_alpha", 0.85).floatValue();
-				inst.renderDistance = main.getDouble("render_distance", 24.0).floatValue();
+				inst.renderDistance = main.getDouble("render_distance", 120.0).floatValue();
 				inst.renderDistance = main.getDouble("fade_distance", 2.0).floatValue();
 				inst.colorOverrides = main.getList("color_overrides", new ArrayList<>());
 

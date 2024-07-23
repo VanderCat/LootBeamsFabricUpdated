@@ -171,7 +171,7 @@ public class Configuration {
 			Identifier registry = Identifier.tryParse(nameIn.replace("#", ""));
             TextColor colorIn = null;
 			try {
-				colorIn = TextColor.parse(configValue[1]);
+				colorIn = TextColor.parse(configValue[1]).getOrThrow();
 			} catch (Exception e) {
 				LootBeams.LOGGER.error(String.format("Color overrides error! \"%s\" is not a valid hex color for \"%s\"", configValue[1], nameIn));
 				return null;

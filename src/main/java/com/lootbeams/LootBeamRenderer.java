@@ -5,20 +5,14 @@ import com.mojang.datafixers.util.Pair;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderPhase;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.text.Style;
@@ -30,14 +24,16 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.StringHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Matrix4f;
 import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Optional;
+
+import static com.lootbeams.LootBeams.LOGGER;
 
 public abstract class LootBeamRenderer extends RenderLayer {
 
@@ -46,7 +42,7 @@ public abstract class LootBeamRenderer extends RenderLayer {
 	 * Beam renders behind things like chests/clouds/water/beds/entities.
 	 */
 
-	private static final Identifier LOOT_BEAM_TEXTURE = new Identifier(LootBeams.MODID, "textures/entity/loot_beam.png");
+	private static final Identifier LOOT_BEAM_TEXTURE = Identifier.of(LootBeams.MODID, "textures/entity/loot_beam.png");
 	private static final RenderLayer LOOT_BEAM_RENDERTYPE = createRenderType();
 
 	public LootBeamRenderer(String string, VertexFormat vertexFormat, VertexFormat.DrawMode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {
@@ -161,7 +157,7 @@ public abstract class LootBeamRenderer extends RenderLayer {
 		stack.translate(0.0D, 10, 0.0D);
 		stack.scale(0.75f, 0.75f, 0.75f);
 
-		List<Text> tooltip = item.getStack().getTooltip(null, TooltipContext.Default.BASIC);
+		List<Text> tooltip = item.getStack().getTooltip(Item.TooltipContext.DEFAULT, null, TooltipType.Default.BASIC);
 
         if (tooltip.size() < 2) {
             return;
@@ -280,9 +276,10 @@ public abstract class LootBeamRenderer extends RenderLayer {
 			}
 
 			//From NBT
-			if (item.getStack().hasNbt() && item.getStack().getNbt().contains("lootbeams.color")) {
-				return TextColor.parse(item.getStack().getNbt().getString("lootbeams.color"));
-			}
+// TODO: Not sure how to do this in 1.21
+//			if (item.getStack().hasNbt() && item.getStack().getNbt().contains("lootbeams.color")) {
+//				return TextColor.parse(item.getStack().getNbt().getString("lootbeams.color"));
+//			}
 
 			//From Name
 			if (LootBeams.config.renderNameColor) {
@@ -293,8 +290,8 @@ public abstract class LootBeamRenderer extends RenderLayer {
 			}
 
 			//From Rarity
-			if (LootBeams.config.renderRarityColor && item.getStack().getRarity().formatting != null) {
-				return TextColor.fromFormatting(item.getStack().getRarity().formatting);
+			if (LootBeams.config.renderRarityColor && item.getStack().getRarity().getFormatting() != null) {
+				return TextColor.fromFormatting(item.getStack().getRarity().getFormatting());
 			} else {
 				return TextColor.fromFormatting(Formatting.WHITE);
 			}
@@ -330,22 +327,21 @@ public abstract class LootBeamRenderer extends RenderLayer {
 	private static void renderPart(MatrixStack stack, VertexConsumer builder, float red, float green, float blue, float alpha, float height, float radius_1, float radius_2, float radius_3, float radius_4, float radius_5, float radius_6, float radius_7, float radius_8) {
 		MatrixStack.Entry matrixentry = stack.peek();
 		Matrix4f matrixpose = matrixentry.getPositionMatrix();
-		Matrix3f matrixnormal = matrixentry.getNormalMatrix();
-		renderQuad(matrixpose, matrixnormal, builder, red, green, blue, alpha, height, radius_1, radius_2, radius_3, radius_4);
-		renderQuad(matrixpose, matrixnormal, builder, red, green, blue, alpha, height, radius_7, radius_8, radius_5, radius_6);
-		renderQuad(matrixpose, matrixnormal, builder, red, green, blue, alpha, height, radius_3, radius_4, radius_7, radius_8);
-		renderQuad(matrixpose, matrixnormal, builder, red, green, blue, alpha, height, radius_5, radius_6, radius_1, radius_2);
+		renderQuad(matrixentry, matrixpose, builder, red, green, blue, alpha, height, radius_1, radius_2, radius_3, radius_4);
+		renderQuad(matrixentry, matrixpose, builder, red, green, blue, alpha, height, radius_7, radius_8, radius_5, radius_6);
+		renderQuad(matrixentry, matrixpose, builder, red, green, blue, alpha, height, radius_3, radius_4, radius_7, radius_8);
+		renderQuad(matrixentry, matrixpose, builder, red, green, blue, alpha, height, radius_5, radius_6, radius_1, radius_2);
 	}
 
-	private static void renderQuad(Matrix4f pose, Matrix3f normal, VertexConsumer builder, float red, float green, float blue, float alpha, float y, float z1, float texu1, float z, float texu) {
-		addVertex(pose, normal, builder, red, green, blue, alpha, y, z1, texu1, 1f, 0f);
-		addVertex(pose, normal, builder, red, green, blue, alpha, 0f, z1, texu1, 1f, 1f);
-		addVertex(pose, normal, builder, red, green, blue, alpha, 0f, z, texu, 0f, 1f);
-		addVertex(pose, normal, builder, red, green, blue, alpha, y, z, texu, 0f, 0f);
+	private static void renderQuad(MatrixStack.Entry matrixentry, Matrix4f pose, VertexConsumer builder, float red, float green, float blue, float alpha, float y, float z1, float texu1, float z, float texu) {
+		addVertex(matrixentry, pose, builder, red, green, blue, alpha, y, z1, texu1, 1f, 0f);
+		addVertex(matrixentry, pose, builder, red, green, blue, alpha, 0f, z1, texu1, 1f, 1f);
+		addVertex(matrixentry, pose, builder, red, green, blue, alpha, 0f, z, texu, 0f, 1f);
+		addVertex(matrixentry, pose, builder, red, green, blue, alpha, y, z, texu, 0f, 0f);
 	}
 
-	private static void addVertex(Matrix4f pose, Matrix3f normal, VertexConsumer builder, float red, float green, float blue, float alpha, float y, float x, float z, float texu, float texv) {
-		builder.vertex(pose, x, y, z).color(red, green, blue, alpha).texture(texu, texv).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(normal, 0.0F, 1.0F, 0.0F).next();
+	private static void addVertex(MatrixStack.Entry matrixentry, Matrix4f pose, VertexConsumer builder, float red, float green, float blue, float alpha, float y, float x, float z, float texu, float texv) {
+		builder.vertex(pose, x, y, z).color(red, green, blue, alpha).texture(texu, texv).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(matrixentry, 0.0F, 1.0F, 0.0F);
 	}
 
 	private static String toBinaryName(String mapName){
